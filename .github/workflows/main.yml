@@ -1,0 +1,12 @@
+  - name: accuknox-install
+  # You may pin to the exact commit or the version.
+  # uses: accuknox/install-action@5b7a0f35b2a5a195a29bfc9bad4d64dbb51883b6
+  uses: accuknox/install-action@v0.1.1
+  with:
+    # kubearmor image to be installed
+    kubearmor-image: # default is 
+    # discovery engine image to be installed
+    discovery-engine-image: # default is 
+    # workload namespaces
+    workload-namespace: # optional, default is 
+          
