@@ -16,7 +16,7 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/prashantsuk/Myntra-Clone.git'
+                git branch: 'main', url: 'https://github.com/yasreebsaad/Hotstar-Clone.git'
             }
         }
         stage("Sonarqube Analysis "){
@@ -62,8 +62,8 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                        sh "docker build -t myntra ."
-                       sh "docker tag myntra prashant680844/myntra:latest "
-                       sh "docker push prashant680844/myntra:latest"
+                       sh "docker tag myntra yasreebakmal/myntra:latest "
+                       sh "docker push yasreebakmal/myntra:latest"
                     }
                 }
             }
@@ -72,9 +72,9 @@ pipeline{
             steps {
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh 'docker-scout quickview prashant680844/myntra:latest'
-                       sh 'docker-scout cves prashant680844/myntra:latest'
-                       sh 'docker-scout recommendations prashant680844/myntra:latest'
+                       sh 'docker-scout quickview yasreebakmal/myntra:latest'
+                       sh 'docker-scout cves yasreebakmal/myntra:latest'
+                       sh 'docker-scout recommendations yasreebakmal/myntra:latest'
                    }
                 }   
             }
@@ -83,11 +83,11 @@ pipeline{
             steps {
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                      // sh 'docker-scout quickview prashant680844/myntra:latest'
-                       //sh 'docker-scout cves prashant680844/myntra:latest'
-                       //sh 'docker-scout recommendations prashant680844/myntra:latest'
+                      // sh 'docker-scout quickview yasreebakmal/myntra:latest'
+                       //sh 'docker-scout cves yasreebakmal/myntra:latest'
+                       //sh 'docker-scout recommendations yasreebakmal/myntra:latest'
                       
-                       sh 'trivy image prashant680844/myntra:latest > trivyfs.json'
+                       sh 'trivy image yasreebakmal/myntra:latest > trivyfs.json'
                    }
                 }
                 
@@ -101,7 +101,7 @@ pipeline{
         }
         stage("deploy_docker"){
             steps{
-                sh "docker run -d --name myntra -p 3000:3000 prashant680844/myntra:latest"
+                sh "docker run -d --name myntra -p 3000:3000 yasreebakmal/myntra:latest"
             }
         }
         stage('Deploy to kubernets'){
