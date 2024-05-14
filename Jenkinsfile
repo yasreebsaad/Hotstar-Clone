@@ -68,6 +68,27 @@ pipeline{
                 }
             }
         }
+        stage('Install and run ImageScan') {
+            steps {
+              dir ('/var/lib/jenkins/workspace/Hotstar') {
+                script {
+                    sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest --quiet image yasreebakmal/myntra:latest -f json -o results.json'
+                }
+            }
+         }
+        }
+        stage('Send result to AccuKnox') {
+            steps {
+                dir ('/var/lib/jenkins/workspace/Hotstar') {
+                    sh '''curl --location --request POST 'https://cspm.demo.accuknox.com/api/v1/artifact/?tenant_id=<tenantID>&data_type=TR&save_to_s3=false' \
+                    --header 'Tenant-Id: 2410' \
+                    --header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3Mjk4MDMwLCJqdGkiOiIwNjU5ZmQ2ZWEwNDQ0NjVlOTY4NzAwZTQ5Zjk2YzhmYyIsImlzcyI6ImNzcG0uZGVtby5hY2N1a25veC5jb20ifQ.eGJ5-uSM6KK0OG7PIFoOfTEkleNfwDV0K-Nsqz-0His3qOm9RFjqGnd6Cuo6XmNljz691WNu_E16uioS_TiyCJ3M0fFev06joLa60P98feIGm0Egs5RO-eN6x9cdApbKDChftWheJU_D0iXr6QVIg0y7ZWK2O9AfBKmWmOUmYO7jEFFFbCkjvjIg2RD7MD24KNKkuvpgjC75TIDErRz3yRnbPzt5XWAxdw7DmKSWMNZ-2kjEwOydw5x_5TJTsKlJoxTtgY1dAWxwGTPSs92cC_xiNDKqc3xBhEiydfSjCdsPmm5WoYbIVZYU4pkcSx9UzP5VBpsNCWTpX3PntfNaaQ' \
+                    --form 'file=@"./results.json"'
+                    '''        
+                }
+            }
+          }
+
         stage('Docker Scout Image') {
             steps {
                 script{
