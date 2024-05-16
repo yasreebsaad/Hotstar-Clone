@@ -61,9 +61,9 @@ pipeline{
             steps{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh "docker build -t myntra ."
-                       sh "docker tag myntra yasreebakmal/myntra:latest "
-                       sh "docker push yasreebakmal/myntra:latest"
+                       sh "docker build -t myntran ."
+                       sh "docker tag myntran yasreebakmal/myntran:latest "
+                       sh "docker push yasreebakmal/myntran:latest"
                     }
                 }
             }
@@ -72,7 +72,7 @@ pipeline{
             steps {
               dir ('/var/lib/jenkins/workspace/Hotstar') {
                 script {
-                    sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/.cache/ aquasec/trivy:latest --quiet image yasreebakmal/myntra:latest  -f json -o /root/.cache/results.json'
+                    sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/.cache/ aquasec/trivy:latest --quiet image yasreebakmal/myntran:latest  -f json -o /root/.cache/results.json'
                 }
             }
          }
@@ -93,8 +93,8 @@ pipeline{
             steps {
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh 'docker-scout quickview yasreebakmal/myntra:latest'
-                       sh 'docker-scout cves yasreebakmal/myntra:latest'
+                       sh 'docker-scout quickview yasreebakmal/myntran:latest'
+                       sh 'docker-scout cves yasreebakmal/myntran:latest'
                        sh 'docker-scout recommendations yasreebakmal/myntra:latest'
                    }
                 }   
@@ -104,11 +104,11 @@ pipeline{
             steps {
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                      // sh 'docker-scout quickview yasreebakmal/myntra:latest'
-                       //sh 'docker-scout cves yasreebakmal/myntra:latest'
-                       //sh 'docker-scout recommendations yasreebakmal/myntra:latest'
+                      // sh 'docker-scout quickview yasreebakmal/myntran:latest'
+                       //sh 'docker-scout cves yasreebakmal/myntran:latest'
+                       //sh 'docker-scout recommendations yasreebakmal/myntran:latest'
                       
-                       sh 'trivy image yasreebakmal/myntra:latest > trivyfs.json'
+                       sh 'trivy image yasreebakmal/myntran:latest > trivyfs.json'
                    }
                 }
                 
@@ -116,13 +116,13 @@ pipeline{
         }
         stage("Remove container"){
             steps{
-                sh "docker stop myntra | true"
-                sh "docker rm myntra | true"
+                sh "docker stop myntran | true"
+                sh "docker rm myntran | true"
             }
         }
         stage("deploy_docker"){
             steps{
-                sh "docker run -d --name myntra -p 3000:3000 yasreebakmal/myntra:latest"
+                sh "docker run -d --name myntran -p 3000:3000 yasreebakmal/myntran:latest"
             }
         }
         stage('Deploy to kubernets'){
