@@ -72,7 +72,7 @@ pipeline{
             steps {
               dir ('/var/lib/jenkins/workspace/Hotstar') {
                 script {
-                    sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest --quiet image yasreebakmal/myntra:latest -f json -o results.json'
+                    sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/.cache/ aquasec/trivy:latest --quiet image yasreebakmal/myntra:latest  -f json -o /root/.cache/results.json'
                 }
             }
          }
