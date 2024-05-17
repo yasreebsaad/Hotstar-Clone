@@ -82,7 +82,7 @@ pipeline{
                 dir ('/var/lib/jenkins/workspace/Hotstar') {
                     sh '''curl --location --request POST 'https://cspm.demo.accuknox.com/api/v1/artifact/?tenant_id=2410&data_type=TR&save_to_s3=false' \
                     --header 'Tenant-Id: 2410' \
-                    --header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3Mjk4MDMwLCJqdGkiOiIwNjU5ZmQ2ZWEwNDQ0NjVlOTY4NzAwZTQ5Zjk2YzhmYyIsImlzcyI6ImNzcG0uZGVtby5hY2N1a25veC5jb20ifQ.eGJ5-uSM6KK0OG7PIFoOfTEkleNfwDV0K-Nsqz-0His3qOm9RFjqGnd6Cuo6XmNljz691WNu_E16uioS_TiyCJ3M0fFev06joLa60P98feIGm0Egs5RO-eN6x9cdApbKDChftWheJU_D0iXr6QVIg0y7ZWK2O9AfBKmWmOUmYO7jEFFFbCkjvjIg2RD7MD24KNKkuvpgjC75TIDErRz3yRnbPzt5XWAxdw7DmKSWMNZ-2kjEwOydw5x_5TJTsKlJoxTtgY1dAWxwGTPSs92cC_xiNDKqc3xBhEiydfSjCdsPmm5WoYbIVZYU4pkcSx9UzP5VBpsNCWTpX3PntfNaaQ' \
+                    --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NTExODAxLCJqdGkiOiI5NTc5ZTZlZThiYTQ0ZjgyYjYwMjc4ODJhOWQ0NzNjMyIsImlzcyI6ImNzcG0uZGVtby5hY2N1a25veC5jb20ifQ.jPBbJqrw1806w1xtdxEo4Ihlv-Wsp6PLj2iM0HK63489LxpAt2akvetVb2cfysoYtNv2ISjYbqHh1JDAYF3ZZMgYewHpgLv-bjVCasYqAlFN-jD4AOs78youtvfc2CIKrwXXl5l7-_O5IkNJRZ8bXb-MRlyoMJfnOPwPgzu3rhJLPjxt3Wx_be0nZgzOiE_3IH2RfXyv1PVbBZB3i7g1wjQGYQKzIGBYxX8TB_-QPt4CC03zUT1QHYayMhQD2C4PiUOPFSXyk0vx8p7iMwAnJx-53_Z1UmExwpKiLHAqBNgIoLaPDqW-anaZs4Xr6W3i6WJgYbr8gw_btZGm8vLFrw' \
                     --form 'file=@"./results.json"'
                     '''        
                 }
